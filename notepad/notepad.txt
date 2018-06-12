@@ -1,0 +1,21 @@
+  var files = event.target.files[0];
+        if (!f.type.match('image.*')) {
+            continue;
+            alert('yes it is a image')
+            var imgtag = document.getElementById("file-input");
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                    imgtag.src = event.target.result;
+                };
+                reader.readAsDataURL(selectedFile);
+        }
+
+
+ <form action="/action_page.php">
+         Name: <input type="text" name="name"><br>
+         <input type="file" name="pic" accept="image/*" onchange="onFileSelected(event)">
+         Dedicated To: <input type="text" name="lname"><br>
+         <input type="file" name="pic" accept="image/*"><br>
+         <input type="file" name="audio" accept="audio/*">
+         <input type="submit">
+    </form>

@@ -1,4 +1,22 @@
-.headerImage img{
-    width:100%;
-    height:10%
+body{
+    background-color:whitesmoke
+}
+.image-upload > input
+{
+    display: none;
+}
+.image-upload{
+    width: 100%;
+    background-image: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);
+    height:45vh;
+}
+.image-upload img
+{
+  height:28vh;
+  width:40vw;
+  border-radius: 50%;
+  /*background-color: yellowgreen;*/
+  margin-left: 28%;
+  border-radius: 50%;
+  margin-top:2%;
 }
