@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height" />
     <title>Sandeep's Wifi</title>
     <link rel="stylesheet" type="text/css" href="./stylesheet/mobile.css">
     <script>
@@ -13,23 +14,56 @@
                     <img id="displayImg"src="../images/mobile/user/user.png"/>
                 </label>
                 <input id="file-input" type="file" accept="image/*" />
+
+                <form autocomplete="off" id="form">
+                    <input type='text' id="name" placeholder="Name" onkeypress=key(event)>
+                </form>
+            </div>
+            <div class="mp3-button">
+                <label for="mp3">
+                    <img id="songImage" src="../images/mobile/song/song.png" align='left'/>
+                    <p id="songName">Select some song</p>
+                </label>
+                <input id="mp3" input type="file" accept="audio/*"/>
             </div>
    
     <script>
        document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
+       document.getElementById('mp3').addEventListener('change',mp3Selected,false);
        function handleFileSelect(evt) {
-           var files = evt.target.files[0];
-           if(files.type.match('image.*')){
+           var file = evt.target.files[0];
+           if(file.type.match('image.*')){
             var reader = new FileReader();
             var imgtag = document.getElementById("displayImg");
             reader.onload = function(evt) {
                 imgtag.src = evt.target.result;
             };
-            reader.readAsDataURL(files);
+            reader.readAsDataURL(file);
            }else{
                alert('Please selected the image file')
            }
-                  }
+        }
+      function key(event) {
+            if (event.charCode == 13) {
+                var name = document.getElementById("name").value
+                if(name == ""){alert("Please provied your name")}
+                else{event.preventDefault()
+                    document.activeElement.blur();
+	                 }
+                event.preventDefault()
+            }
+      }   
+      function mp3Selected(evt){
+          var file = evt.target.files[0];
+          if(file.type.match('audio.*')){
+              var songName = file.name;
+              document.getElementById('songName').innerHTML  = songName.replace('+',"").substring(0,22);
+               
+          }else{
+            alert('Please selected the audio file')
+          }
+      }
+
     </script>
 </body>
 </html>

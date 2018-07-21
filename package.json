@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Kunalpaul12/Pull-Play#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "hide-virtual-keyboard": "^1.0.1",
     "socket.io": "^2.1.1"
   }
 }
