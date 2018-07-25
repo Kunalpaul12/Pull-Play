@@ -16,15 +16,21 @@
                 <input id="file-input" type="file" accept="image/*" />
 
                 <form autocomplete="off" id="form">
-                    <input type='text' id="name" placeholder="Name" onkeypress=key(event)>
+                    <input type='text' id="name" placeholder="Name" onkeypress=nameCheck(event)>
                 </form>
             </div>
-            <div class="mp3-button">
-                <label for="mp3">
-                    <img id="songImage" src="../images/mobile/song/song.png" align='left'/>
-                    <p id="songName">Select some song</p>
+            <div class="button">
+                <label for="mp3" class="label">
+                    <img id="songImage" src="../images/mobile/song/song.svg" align='left'/>
+                    <p id="songName">Select Song</p>
                 </label>
                 <input id="mp3" input type="file" accept="audio/*"/>
+            </div>
+            <div class="button">
+                <form autocomplete="off" id="form">
+                    <img id="songImage" src="../images/mobile/dedicated/dedicated.svg" align='left'/>
+                    <input type='text' id="dedicatedtext" placeholder="Dedicated To (Optional)" onkeypress=dedicatedCheck(event)>
+                </form>
             </div>
    
     <script>
@@ -43,7 +49,7 @@
                alert('Please selected the image file')
            }
         }
-      function key(event) {
+      function nameCheck(event) {
             if (event.charCode == 13) {
                 var name = document.getElementById("name").value
                 if(name == ""){alert("Please provied your name")}
@@ -62,6 +68,9 @@
           }else{
             alert('Please selected the audio file')
           }
+      }
+      function dedicatedCheck(evt){
+          if(event.charCode == 13){ document.activeElement.blur();event.preventDefault()}
       }
 
     </script>
