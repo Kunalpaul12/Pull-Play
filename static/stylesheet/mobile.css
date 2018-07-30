@@ -1,6 +1,6 @@
 body{
     background-color:whitesmoke;
-    font-size: 4vw;
+    font-size: 2.5vh;
     margin:0px;
 }
 .image-upload > input
@@ -19,21 +19,22 @@ body{
     margin-left: auto;
     margin-right: auto;
     margin-top:1vh; 
-    width: 60vw;
-    height: 35vh;
+    width:32vh;
+    height: 32vh;
     border-radius: 50%;
 }
 
 input[type=text] {
     width: 75%;
     max-width: 75%; 
-    max-height: 28px;
+    max-height: 4vh;
     margin-top: 2vh;
     text-align: center;
     margin-left: 12.5%;
     font-size:inherit;
     color: white;
     border: none;
+    margin-bottom: 1vh;
     border-bottom: 3px solid white;
     background-color: rgba(0,0,0,0);
 }
@@ -79,22 +80,49 @@ input[type=text] {
   }
   .label{
     width:92vw;
-    height:10vh;
-    display: block;
+    height:100%;
+    display: flex;
+    align-items: center; /* For vertical alignment */
+  }
+  .label > input{
+      display: none;
   }
   #songImage{
       /*no need of width it auto adjust itself*/
-      height: 5.5vh;
-      margin-left: 5%;
-      margin-top: 3vh;
+      height: 80%;
+      margin-left: 1%;
+      /*margin-top:1.5%;*/ /*margin top in percentage is calculate in the relationship of the containing element width*/
   }
+  .dedicatedDiv > input{
+    display:none;
+  }
+  #dedicatedImage{
+    /*no need of width it auto adjust itself*/
+    width:9vh;
+    height:9vh;
+    border-radius: 50%;
+    /*margin-top:1.5%;*/ /*margin top in percentage is calculate in the relationship of the containing element width*/
+}
 
   #songName{
-   margin-left: auto;
-   margin-right: auto;
-   margin-top: 2vh;
    font-size: inherit;
    display:inline-block;/*what does it mean*/
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.labelDedicatedImage{
+    width:12vw;
+    height:100%;
+    margin-left: 1%;
+    display: flex;
+    align-items: center; /* For vertical alignment */
+  }
+
+#form{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #dedicatedtext::-webkit-input-placeholder { /* Chrome */

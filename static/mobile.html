@@ -15,26 +15,38 @@
                 </label>
                 <input id="file-input" type="file" accept="image/*" />
 
-                <form autocomplete="off" id="form">
+                <form autocomplete="off">
                     <input type='text' id="name" placeholder="Name" onkeypress=nameCheck(event)>
                 </form>
             </div>
             <div class="button">
                 <label for="mp3" class="label">
                     <img id="songImage" src="../images/mobile/song/song.svg" align='left'/>
-                    <p id="songName">Select Song</p>
+                    <label id="songName">Select Song</label>
                 </label>
                 <input id="mp3" input type="file" accept="audio/*"/>
             </div>
             <div class="button">
-                <form autocomplete="off" id="form">
-                    <img id="songImage" src="../images/mobile/dedicated/dedicated.svg" align='left'/>
-                    <input type='text' id="dedicatedtext" placeholder="Dedicated To (Optional)" onkeypress=dedicatedCheck(event)>
-                </form>
+                <div style="width:100%;height: 100%;display:flex;align-items: center" class="dedicatedDiv">
+                    <label for="dedicated-image" class="labelDedicatedImage">
+                        <img id="dedicatedImage" src="../images/mobile/dedicated/dedicated.svg" align='left'/>
+                    </label>
+                        <input id="dedicated-image" type="file" accept="image/*" />
+                    <form autocomplete="off" id="form">
+                                <input type='text' id="dedicatedtext" placeholder="Dedicated To" onkeypress=dedicatedCheck(event)>
+                    </form>
+
+                </div>
+            </div>
+                        
+                       
+                        
+               
             </div>
    
     <script>
        document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
+       document.getElementById('dedicated-image').addEventListener('change',dedictedImage, false);
        document.getElementById('mp3').addEventListener('change',mp3Selected,false);
        function handleFileSelect(evt) {
            var file = evt.target.files[0];
@@ -49,6 +61,20 @@
                alert('Please selected the image file')
            }
         }
+       function dedictedImage(evt) {
+           var file = evt.target.files[0];
+           if(file.type.match('image.*')){
+            var reader = new FileReader();
+            var imgtag = document.getElementById("dedicatedImage");
+            reader.onload = function(evt) {
+                imgtag.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+           }else{
+               alert('Please selected the image file')
+           }
+        }
+
       function nameCheck(event) {
             if (event.charCode == 13) {
                 var name = document.getElementById("name").value
