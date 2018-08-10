@@ -38,7 +38,9 @@
 
                 </div>
             </div>
-            </div>
+            <button type="button" id="sendButton" onclick="send()">
+                <img src="../images/mobile/send/send.svg" id="sendImage"/>
+            </button>
    
     <script>
        document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
@@ -94,7 +96,17 @@
       function dedicatedCheck(evt){
           if(event.charCode == 13){ document.activeElement.blur();event.preventDefault()}
       }
-
+      function send(){
+          var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+          xmlhttp.open("POST", "/api/post",false);
+          xmlhttp.setRequestHeader("Content-Type", "appliation/json");
+          xmlhttp.send(JSON.stringify({ name: "kunal",songName:"123" }));
+          alert(xmlhttp.status)
+          /*var http = new XMLHttpRequest();
+          http.open("GET","/api/get",false)
+          http.send()
+          alert(http.status)*/
+      }
     </script>
 </body>
 </html>

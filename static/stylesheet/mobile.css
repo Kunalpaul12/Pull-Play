@@ -156,5 +156,21 @@ input[type=text] {
     border: none;
     border-bottom: 1px solid black;
 }
+#sendButton{
+    position: fixed;
+    bottom: 5vh;
+    right:5vw;
+    width: 16vh;
+    height: 16vh;
+    border-radius: 50%;
+    border: none;    
+}
+#sendImage{
+    position: fixed;
+    bottom: 5vh;
+    right:5vw;
+    width: 16vh;
+    height: 16vh;
+}
 
 
