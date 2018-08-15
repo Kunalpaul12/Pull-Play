@@ -46,6 +46,9 @@
        document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
        document.getElementById('dedicated-image').addEventListener('change',dedictedImage, false);
        document.getElementById('mp3').addEventListener('change',mp3Selected,false);
+       var userImageBlob;
+       var dedicatedToImageBlob;
+       var mp3Blob;
        function handleFileSelect(evt) {
            var file = evt.target.files[0];
            if(file.type.match('image.*')){
@@ -53,10 +56,12 @@
             var imgtag = document.getElementById("displayImg");
             reader.onload = function(evt) {
                 imgtag.src = evt.target.result;
+                userImageBlob = evt.target.result
             };
             reader.readAsDataURL(file);
            }else{
                alert('Please selected the image file')
+               userImagePath = ""
            }
         }
        function dedictedImage(evt) {
@@ -66,6 +71,9 @@
             var imgtag = document.getElementById("dedicatedImage");
             reader.onload = function(evt) {
                 imgtag.src = evt.target.result;
+                dedicatedToImageBlob = evt.target.result;
+                alert(dedicatedToImageBlob)
+                console.log(dedicatedToImageBlob)
             };
             reader.readAsDataURL(file);
            }else{
@@ -84,11 +92,19 @@
             }
       }   
       function mp3Selected(evt){
+          alert(mp3Blob)
           var file = evt.target.files[0];
+          var pathURL = URL.createObjectURL(event.target.files[0]);
+          console.log("the path of mp3 is:- ",pathURL)
           if(file.type.match('audio.*')){
               var songName = file.name;
               document.getElementById('songName').innerHTML  = songName.replace('+',"").substring(0,22);
-               
+              var reader = new FileReader();
+              reader.onload = function(evt) {
+              imgtag.src = evt.target.result;
+              dedicatedToImageBlob = evt.target.result;
+          }
+          reader.readAsDataURL(file)
           }else{
             alert('Please selected the audio file')
           }
@@ -97,15 +113,31 @@
           if(event.charCode == 13){ document.activeElement.blur();event.preventDefault()}
       }
       function send(){
-          var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-          xmlhttp.open("POST", "/api/post",false);
-          xmlhttp.setRequestHeader("Content-Type", "appliation/json");
-          xmlhttp.send(JSON.stringify({ name: "kunal",songName:"123" }));
+          var xmlhttp = new XMLHttpRequest()
+          var data = new FormData()
+          xmlhttp.open("POST","/api/post",false);
+          data.append("name",document.getElementById("name").value)
+          data.append("songName",document.getElementById("songName").innerHTML)
+          data.append("dedicatedTo",document.getElementById("dedicatedtext").value)
+          data.append("userImage",userImageBlob)
+          data.append("dedicatedToImage",dedicatedToImageBlob)
+          xmlhttp.send(data)
           alert(xmlhttp.status)
-          /*var http = new XMLHttpRequest();
-          http.open("GET","/api/get",false)
-          http.send()
-          alert(http.status)*/
+          /*var url = "/api/post";
+            var data = {};
+            data.name = document.getElementById("name").value;
+            data.songName  = document.getElementById("songName").innerHTML;
+            data.dedicatedTo = document.getElementById("dedicatedtext").value;
+            data.userImage = String(userImageBlob.replace("data:image/png;base64,", ""));
+            data.dedicatedToImage = String(dedicatedToImageBlob.replace("data:image/png;base64,", ""));
+            var json = JSON.stringify(data);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST",url,true);
+            xhr.setRequestHeader('Content-type','application/json');
+            xhr.onload = function () {
+                alert(xhr.status)
+            }
+            xhr.send(json);*/
       }
     </script>
 </body>
