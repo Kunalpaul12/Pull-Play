@@ -5,8 +5,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height" />
     <title>Sandeep's Wifi</title>
     <link rel="stylesheet" type="text/css" href="./stylesheet/mobile.css">
-    <script>
-    </script>
+    <script src="./jquery/jquery-3.3.1.min.js"></script>
 </head>
 <body>
         <div class="image-upload">
@@ -38,14 +37,25 @@
 
                 </div>
             </div>
+           
             <button type="button" id="sendButton" onclick="send()">
                 <img src="../images/mobile/send/send.svg" id="sendImage"/>
             </button>
+            <div class="loadingModal">
+                    <div class="loader"></div>
+                    <img src="../images/mobile/checked/checked.svg" id="sendingDone"/>
+                    <img src="../images/mobile/alert/alert.svg" id="sendingAlert"/>
+                    <button id="refresh" onclick="alert('hello world')">
+                            <img src="../images/mobile/refresh/refresh.svg" id="sendImage"/>
+                    </button>
+                    
+            </div>
    
     <script>
        document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
        document.getElementById('dedicated-image').addEventListener('change',dedictedImage, false);
        document.getElementById('mp3').addEventListener('change',mp3Selected,false);
+       $( document ).ready(()=>{$('.loadingModal').hide()});
        var userImage;
        var dedicatedToImage;
        var mp3;
@@ -103,10 +113,15 @@
           if(event.charCode == 13){ document.activeElement.blur();event.preventDefault()}
       }
       function send(){
-          alert("send clicked")
           var xmlhttp = new XMLHttpRequest()
           var data = new FormData()
-          xmlhttp.open("POST","/api/post",false);
+          xmlhttp.upload.onloadstart = () =>{$('.loadingModal').show();$('#sendingDone').hide();$('#sendingAlert').hide()} 
+          xmlhttp.upload.onprogress = (evt) => {
+              console.log("i m here")
+              }
+          xmlhttp.upload.onloadend = () => {sendingStatus(false)}
+          xmlhttp.upload.onerror = () => {$('.loadingModal').hide()}
+          xmlhttp.open("POST","/api/post",true);
           data.append("name",document.getElementById("name").value)
           data.append("songName",document.getElementById("songName").innerHTML)
           data.append("dedicatedTo",document.getElementById("dedicatedtext").value)
@@ -114,8 +129,10 @@
           data.append("dedicatedToImage",dedicatedToImage)
           data.append("mp3",mp3)
           xmlhttp.send(data)
-          xhr.upload.onprogress = function(e){var percentComplete = Math.ceil((e.loaded / e.total) * 100);};
-          alert(xmlhttp.status)
+          //alert(xmlhttp.status)
+      }
+      function sendingStatus(s){
+          if(s){ $('#sendingDone').show();$('.loader').hide()}else{$('#sendingAlert').show();$('.loader').hide()}
       }
     </script>
 </body>

@@ -156,7 +156,7 @@ input[type=text] {
     border: none;
     border-bottom: 1px solid black;
 }
-#sendButton{
+#sendButton , #refresh{
     position: fixed;
     bottom: 5vh;
     right:5vw;
@@ -164,6 +164,7 @@ input[type=text] {
     height: 16vh;
     border-radius: 50%;
     border: none;    
+    background-color: rgba(0,0,0,0)
 }
 #sendImage{
     position: fixed;
@@ -173,4 +174,37 @@ input[type=text] {
     height: 16vh;
 }
 
+.loadingModal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    background-color:black;
+    opacity: 0.8;
+}
 
+.loader {
+    border: 3vw solid #f3f3f3; /* Light grey */
+    border-top: 3vw solid #f794a4; /* Blue */
+    border-radius: 50%;
+    width: 50vw;
+    height: 50vw;
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#sendingDone , #sendingAlert{
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    margin-top: 28%;
+    margin-left: 25%;
+    top: 0px;
+}
