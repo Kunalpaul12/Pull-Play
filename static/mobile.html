@@ -45,8 +45,12 @@
                     <div class="loader"></div>
                     <img src="../images/mobile/checked/checked.svg" id="sendingDone"/>
                     <img src="../images/mobile/alert/alert.svg" id="sendingAlert"/>
-                    <button id="refresh" onclick="alert('hello world')">
-                            <img src="../images/mobile/refresh/refresh.svg" id="sendImage"/>
+                    <h2 style="color: white;margin-left: auto;margin-right: auto;text-align: center" id="failedText">Something went wrong <br/> please try again later</h2>
+                    <button id="retry" onclick="alert('hello world')">
+                            <img src="../images/mobile/refresh/refresh.svg" id="retryImage"/>
+                    </button>
+                    <button id="refreshPage" onclick="alert('hello world')">
+                        <img src="../images/mobile/checked/checked.svg" id="refreshImagePage"/>
                     </button>
                     
             </div>
@@ -115,11 +119,11 @@
       function send(){
           var xmlhttp = new XMLHttpRequest()
           var data = new FormData()
-          xmlhttp.upload.onloadstart = () =>{$('.loadingModal').show();$('#sendingDone').hide();$('#sendingAlert').hide()} 
+          xmlhttp.upload.onloadstart = () =>{$('.loadingModal').show();$('#sendingDone').hide();$('#sendingAlert').hide();$('#failedText').hide();$('#retry').hide();$('#refreshPage').hide()} 
           xmlhttp.upload.onprogress = (evt) => {
               console.log("i m here")
               }
-          xmlhttp.upload.onloadend = () => {sendingStatus(false)}
+          xmlhttp.upload.onloadend = () => {sendingStatus(true)}
           xmlhttp.upload.onerror = () => {$('.loadingModal').hide()}
           xmlhttp.open("POST","/api/post",true);
           data.append("name",document.getElementById("name").value)
@@ -132,7 +136,7 @@
           //alert(xmlhttp.status)
       }
       function sendingStatus(s){
-          if(s){ $('#sendingDone').show();$('.loader').hide()}else{$('#sendingAlert').show();$('.loader').hide()}
+          if(s){ $('#sendingDone').show();$('.loader').hide();$('#refreshPage').show()}else{$('#sendingAlert').show();$('.loader').hide();$('#failedText').show();$('#retry').show();$('#refreshPage').show()}
       }
     </script>
 </body>
