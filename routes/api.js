@@ -1,29 +1,41 @@
+
 const express = require('express')
 const routes = express.Router()
 const user = require('../models/user')
 var fs = require("fs")
 var multer  = require('multer')
+var counter = 0;
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      var d = new Date()
-      var dir = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'-'+d.getHours()+"-"+d.getMinutes()+"-"+d.getSeconds()+"-"+d.getMilliseconds();
-      /*fs.mkdirSync(`uploads/${dir}`,0o777).then((e)=>{
-        console.log("wat is this :----",e)
-      });*/
-      /*fs.exists(`uploads/${dir}`,(e) => {
-        //if(e){cb(null, `uploads/${dir}`)}
-        alert(e)
-      })*/
-      fs.mkdir(`uploads/${dir}`,(e) =>{
-        if(e){console.log("can't created a dir")}
-        else{cb(null, `uploads/${dir}`)}
-      })
-       
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now())
+  destination: function (req, file, cb) {
+    var path = `static/uploads/${counter}`
+    fs.exists(path, function(exists) {
+      if (exists) {
+        cb(null, path)
+      }else{
+        fs.mkdir(path,(e) =>{
+          if(e){console.log("can't created a path")}
+          else{cb(null, path)}
+        })
+      }
+  });
+  },
+  filename: function (req, file, cb) {
+    console.log("this is request :- ",req)
+    if(file.fieldname == "userImage"){
+      var filename = "userImage"
+      var extension = file.mimetype == "image/jpeg" ? ".jpg" : ".png"
+      cb(null,filename+extension)
+      return
     }
-  })
+    if(file.fieldname == "dedicatedToImage"){
+      var filename = "dedicatedToImage"
+      var extension = file.mimetype == "image/jpeg" ? ".jpg" : ".png"
+      cb(null,filename+extension)
+      return
+    }
+    cb(null, file.originalname)
+  }
+})
 var upload = multer({ storage: storage })
 
 routes.get('/get',(req,res,next) => {
@@ -34,9 +46,9 @@ routes.get('/get',(req,res,next) => {
 
 routes.post('/post',upload.any(),(req,res,next) => {
     user.create(req.body)
-    .then((response) => {res.send({response})})
+    .then((response) => {res.send({response});counter++})
     .catch(next)
-    
 })
 
 module.exports = routes
+//9326476339

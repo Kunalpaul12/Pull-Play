@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0' >
     <title>Sandeep's Wifi</title>
     <link rel="stylesheet" type="text/css" href="./stylesheet/mobile.css">
     <script src="./jquery/jquery-3.3.1.min.js"></script>
@@ -15,7 +15,7 @@
                 <input id="file-input" type="file" accept="image/*" />
 
                 <form autocomplete="off">
-                    <input type='text' id="name" placeholder="Name" onkeypress=nameCheck(event)>
+                    <input type='text' id="name" placeholder="Name" onkeypress=nameCheck(event) on-touch="noZoom()">
                 </form>
             </div>
             <div class="button">
@@ -52,13 +52,13 @@
                     <button id="refreshPage" onclick="refresh()">
                         <img src="../images/mobile/checked/checked.svg" id="refreshImagePage"/>
                     </button>
-                    
             </div>
    
     <script>
        document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
        document.getElementById('dedicated-image').addEventListener('change',dedictedImage, false);
        document.getElementById('mp3').addEventListener('change',mp3Selected,false);
+       $("input, textarea").focus(function(){ $(document.body).addClass('when-keyboard-showing'); });
        $( document ).ready(()=>{$('.loadingModal').hide()});
        var userImage;
        var dedicatedToImage;
@@ -117,6 +117,7 @@
           if(event.charCode == 13){ document.activeElement.blur();event.preventDefault()}
       }
       function send(){
+          if(document.getElementById('name').value == "" || mp3 == ""){missingData();return}
           var xmlhttp = new XMLHttpRequest()
           var data = new FormData()
           xmlhttp.upload.onloadstart = () =>{$('.loadingModal').show();$('#sendingDone').hide();$('#sendingAlert').hide();$('#failedText').hide();$('#retry').hide();$('#refreshPage').hide()} 
@@ -136,10 +137,24 @@
           alert(xmlhttp.status)
       }
       function sendingStatus(s){
-          if(s){ $('#sendingDone').show();$('.loader').hide();$('#refreshPage').show()}else{$('#sendingAlert').show();$('.loader').hide();$('#failedText').show();$('#retry').show();$('#refreshPage').show()}
+          if(s){ $('#sendingDone').show();$('.loader').hide();$('#refreshPage').show()}
+          else{
+              $('#sendingAlert').show();
+              $('.loader').hide();
+              $('#failedText').show();
+              $('#retry').show();
+              $('#refreshPage').show();
+              $('#sendingDone').hide(); 
+            }
       }
       function refresh(){
         window.location.reload();
+      }
+      function missingData(){
+          alert("Please provied ur name and song")
+      }
+      function onZoom() {
+          alert('on zoom called')
       }
     </script>
 </body>

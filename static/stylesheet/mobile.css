@@ -2,6 +2,7 @@ body{
     background-color:whitesmoke;
     font-size: 3vh;
     margin:0px;
+    overflow:scroll;
 }
 .image-upload > input
 {
@@ -10,31 +11,31 @@ body{
 .image-upload{
     width:100%;
     background: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);
-    height:42vh;
-    overflow: auto;
+    height:42%;
+    overflow: scroll;
 }
 .image-upload img
 {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top:1vh; 
-    width:32vh;
-    height: 32vh;
+    margin-top:1%; 
+    width:45%;
+    height: 45%;
     border-radius: 50%;
 }
 
 input[type=text] {
     width: 75%;
     max-width: 75%; 
-    max-height: 4vh;
-    margin-top: 2vh;
+    max-height: 4%;
+    margin-top: 2%;
     text-align: center;
     margin-left: 12.5%;
     font-size:inherit;
     color: white;
     border: none;
-    margin-bottom: 1vh;
+    margin-bottom: 1%;
     border-bottom: 3px solid white;
     background-color: rgba(0,0,0,0);
 }
@@ -66,7 +67,7 @@ input[type=text] {
     display: none;
 }
   .button {
-      width:92vw;
+      width:92%;
       height:10vh;
       margin-left: auto;
       margin-right: auto;
@@ -79,7 +80,7 @@ input[type=text] {
       box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   }
   .label{
-    width:92vw;
+    width:92%;
     height:100%;
     display: flex;
     align-items: center; /* For vertical alignment */
@@ -98,9 +99,8 @@ input[type=text] {
   }
   #dedicatedImage{
     /*no need of width it auto adjust itself*/
-    width:9vh;
-    height:9vh;
-    border-radius: 50%;
+    height: 80%;
+    margin-left: 1%;
     /*margin-top:1.5%;*/ /*margin top in percentage is calculate in the relationship of the containing element width*/
 }
 
@@ -228,4 +228,8 @@ input[type=text] {
 #retryImage{
     width: 10vh;
     height: 10vh;
+}
+
+@media (max-width:550px) { 
+    body.when-keyboard-showing .header { height:0; padding:0; }
 }
