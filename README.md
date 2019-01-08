@@ -7,3 +7,4 @@ UI
 3> placeholder should go away when text filed is clicked
 4> send button not looking good on small screen size (daddy phone)
 5> image upload only jpeg and png no svg
+https://stackoverflow.com/questions/18112204/get-all-directories-within-directory-nodejs

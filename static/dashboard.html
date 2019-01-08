@@ -5,16 +5,24 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0' >
     <title>Pull-And-Play</title>
     <link rel="stylesheet" type="text/css" href="./stylesheet/dashboard.css">
+    <script src="./jquery/jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <div id="background">
         <div id="users">
-            <div id="user-card">
-                <img id="user-icon" src="./uploads/0/userImage-7bit.jpg"/>
+           <!-- <div id="user-card">
+                <img id="user-icon" src="./uploads/0/userImage.jpg"/>
             </div>
             <div id="user-card">
-                <img id="user-icon" src="./uploads/0/dedicatedToImage-7bit.jpg"/>
-            </div>
+                <img id="user-icon" src="./uploads/0/dedicatedToImage.jpg"/>
+            </div> -->
         </div>
     </div>
+    <script>
+        $(document).ready(userList)
+        function userList(){
+            $("#users").append("<div id='user-card'> <img id='user-icon' src='./uploads/0/userImage.jpg'/></div>")
+        }
+    </script>
+</body>
 </html>
