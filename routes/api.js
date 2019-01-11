@@ -3,6 +3,7 @@ const express = require('express')
 const routes = express.Router()
 const user = require('../models/user')
 var fs = require("fs")
+var shell = require("shelljs")
 var multer  = require('multer')
 var counter = 0;
 var storage = multer.diskStorage({
@@ -49,5 +50,11 @@ routes.post('/post',upload.any(),(req,res,next) => {
     .then((response) => {res.send({response});counter++})
     .catch(next)
 })
+
+routes.get('/list_count',(req,res,next) => {
+  var shellresponse = shell.ls("./static/uploads")
+  res.send(shellresponse)
+})
+
 
 module.exports = routes

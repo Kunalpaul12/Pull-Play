@@ -24,6 +24,7 @@
     "hide-virtual-keyboard": "^1.0.1",
     "mongoose": "^5.2.7",
     "multer": "^1.3.1",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "shelljs":"^0.8.3"
   }
 }
