@@ -6,23 +6,46 @@
     <title>Pull-And-Play</title>
     <link rel="stylesheet" type="text/css" href="./stylesheet/dashboard.css">
     <script src="./jquery/jquery-3.3.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
     <div id="background">
         <div id="users">
-           <!-- <div id="user-card">
-                <img id="user-icon" src="./uploads/0/userImage.jpg"/>
+           <!-----<div id="user-card">
+            <img id='user-icon' src='./uploads/0/userImage.jpg'/>
+            <h3 id="music-text">"the song is mind"</h3>  
             </div>
+
             <div id="user-card">
-                <img id="user-icon" src="./uploads/0/dedicatedToImage.jpg"/>
-            </div> -->
+                    <img id='user-icon' src='./uploads/0/userImage.jpg'/>
+                    <div id="music-div"><h3 id="music-text">"the song is mind"</h3></div>   
+                    </div>
+            </div>---->
+           
         </div>
     </div>
     <script>
-        $(document).ready(userList)
-        function userList(){
-            $("#users").append("<div id='user-card'> <img id='user-icon' src='./uploads/0/userImage.jpg'/></div>")
-        }
+        var counter = 0;
+       $(() => {
+           setInterval(() =>{
+            $.get("/api/list_count",function(response){
+                $.get("./api/mp3",function(res){
+                    console.log(counter)
+                if(counter != response){
+                    var j = 0;
+                    for(var i = counter;i<response;i++){
+                    $("#users").append("<div id='user-card'><img id='user-icon' src='./uploads/"+i+"/userImage.jpg'/><h3 id='music-text'>'the song is mind'</h3></div>")
+                    counter = response
+                    j
+                }
+                }else{
+                    console.log("No Change")
+                }
+                })
+                })
+           },1000)
+       })
+               
     </script>
 </body>
 </html>

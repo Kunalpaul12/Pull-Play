@@ -6,6 +6,7 @@ var fs = require("fs")
 var shell = require("shelljs")
 var multer  = require('multer')
 var counter = 0;
+var io = require('socket.io')
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     var path = `static/uploads/${counter}`
@@ -47,14 +48,20 @@ routes.get('/get',(req,res,next) => {
 
 routes.post('/post',upload.any(),(req,res,next) => {
     user.create(req.body)
-    .then((response) => {res.send({response});counter++})
+    .then((response) => {
+      res.send({response});
+      counter = shell.ls("./static/uploads").length + 1
+    })
     .catch(next)
 })
 
 routes.get('/list_count',(req,res,next) => {
-  var shellresponse = shell.ls("./static/uploads")
-  res.send(shellresponse)
+  res.send(String(shell.ls("./static/uploads").length))
 })
-
+routes.get('/mp3',(req,res,next) => {
+  res.send(
+    shell.find('./static/uploads')
+    .filter(function(file) { return file.match(/\.mp3$/); }))
+})
 
 module.exports = routes

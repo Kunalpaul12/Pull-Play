@@ -6,6 +6,7 @@
     <title>Sandeep's Wifi</title>
     <link rel="stylesheet" type="text/css" href="./stylesheet/mobile.css">
     <script src="./jquery/jquery-3.3.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
         <div class="image-upload">
@@ -137,15 +138,26 @@
           alert(xmlhttp.status)
       }
       function sendingStatus(s){
-          if(s){ $('#sendingDone').show();$('.loader').hide();$('#refreshPage').show()}
-          else{
-              $('#sendingAlert').show();
-              $('.loader').hide();
-              $('#failedText').show();
-              $('#retry').show();
-              $('#refreshPage').show();
-              $('#sendingDone').hide(); 
-            }
+          if(s){sendSucessfull()}
+          else{sendFailed()}
+      }
+      function sendSucessfull(){
+        $('#sendingDone').show()
+        $('.loader').hide()
+        $('#refreshPage').show()
+        var socket = io();
+        //socket.emit('uploadSucessfull',"user uploaded data");
+        socket.on('connection', function(socket){
+        socket.emit('uploadSucessfull');
+        });
+      }
+      function sendFailed(){
+        $('#sendingAlert').show();
+        $('.loader').hide();
+        $('#failedText').show();
+        $('#retry').show();
+        $('#refreshPage').show();
+        $('#sendingDone').hide();
       }
       function refresh(){
         window.location.reload();

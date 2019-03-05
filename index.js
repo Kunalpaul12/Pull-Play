@@ -17,6 +17,6 @@ res.status(422).send({
 })
 })
 var io = socket(server)
-io.on('connection',() =>{
+io.on('connection',(socket) =>{
     console.log('socket server connection is made')
 })

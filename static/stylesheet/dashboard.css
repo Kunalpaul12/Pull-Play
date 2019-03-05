@@ -26,9 +26,18 @@ html , body{
     margin: 5%;
     border-radius: 2%;
     background-color:whitesmoke;
+    display: inline-block;
 }
 #user-icon{
     width:40%;
     height:100%;
     margin-left: 0;
+    float: left;
+}
+#music-text{
+    width: 50%;
+    height: 100%;
+    margin: 0% 5% 0% 5%;
+    float: right;
+    font-size: 95%;
 }
