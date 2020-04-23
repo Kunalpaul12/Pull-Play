@@ -5,7 +5,7 @@ var path = require("path");
 var fs = require("fs");
 var shell = require("shelljs");
 var multer = require("multer");
-var counter = shell.ls("-d", "./static/uploads").length;
+var counter = shell.ls("./static/uploads").length + 1;
 var io = require("socket.io");
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
