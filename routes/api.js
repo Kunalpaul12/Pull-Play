@@ -65,6 +65,18 @@ routes.get("/get", (req, res, next) => {
           .filter(function (file) {
             return file.match(/\.mp3$/);
           })[0];
+        refData.short_userImage = shell
+          .find(`./static/uploads/${folder[i]}`)
+          .filter(function (file) {
+            return file.match("userImage");
+          })[0]
+          .replace("static", "");
+        refData.short_dedicatedImage = shell
+          .find(`./static/uploads/${folder[i]}`)
+          .filter(function (file) {
+            return file.match("dedicatedToImage");
+          })[0]
+          .replace("static", "");
         refData.data = response[i];
         data.push(refData);
       }
